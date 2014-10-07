@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Reaktor on 07.10.2014.
  */
-public class FixPaymentEmployees implements Serializable{
+public class FixPaymentEmployees implements Serializable, Comparable {
     private int id;
     private String name;
     private double salary;
@@ -76,5 +76,19 @@ public class FixPaymentEmployees implements Serializable{
         temp = Double.doubleToLongBits(salary);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Override
+    //Сортування колекції по середній заробітній платі у порядку спадання, якщо зарплати співпадають, то відсортовується по імені.
+    public int compareTo(Object o) {
+        FixPaymentEmployees employees = (FixPaymentEmployees) o;
+        if (averageMonthlySalary() > employees.averageMonthlySalary()) {
+            return -1;
+        } else if (averageMonthlySalary() < employees.averageMonthlySalary()) {
+            return 1;
+        } else if (averageMonthlySalary() == employees.averageMonthlySalary()) {
+            return getName().compareTo(employees.toString());
+        }
+        return 0;
     }
 }
