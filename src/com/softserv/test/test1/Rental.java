@@ -41,18 +41,43 @@ public class Rental {
         result = getDays() * getBasePrice();
         if (getKind() == 1) {
             result = result * 1.5;
-        }
-        if (getKind() == 2) {
+        } else if (getKind() == 2) {
             result = result * 2;
-        }
-        if (getKind() == 3) {
+        } else if (getKind() == 3) {
             result = result * 2.5;
-        }
-        if (getDays() > 7) {
+        } else if (getDays() > 7) {
             result = result * 3;
         }
         // Other calculation.
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rental rental = (Rental) o;
+
+        if (days != rental.days) return false;
+        if (kind != rental.kind) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = kind;
+        result = 31 * result + days;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Rental{" +
+                "kind=" + kind +
+                ", days=" + days +
+                '}';
     }
     // Other methods.
 }

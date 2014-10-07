@@ -1,11 +1,11 @@
 package com.softserv.test.test2;
 
-import java.util.Comparator;
+import java.io.Serializable;
 
 /**
  * Created by Reaktor on 07.10.2014.
  */
-public class FixPaymentEmployees {
+public class FixPaymentEmployees implements Serializable{
     private int id;
     private String name;
     private double salary;
@@ -53,5 +53,28 @@ public class FixPaymentEmployees {
                 ", salary=" + averageMonthlySalary();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FixPaymentEmployees)) return false;
 
+        FixPaymentEmployees that = (FixPaymentEmployees) o;
+
+        if (id != that.id) return false;
+        if (Double.compare(that.salary, salary) != 0) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        temp = Double.doubleToLongBits(salary);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
