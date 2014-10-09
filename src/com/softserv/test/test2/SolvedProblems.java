@@ -35,18 +35,19 @@ public class SolvedProblems {
     //Зчитування даних колекції працівників з файла
     public static List<FixPaymentEmployees> fileToCollection() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<FixPaymentEmployees> employeeses = new ArrayList<FixPaymentEmployees>();
         //Введення імені файла
         System.out.println("Write filename of input stream");
         String inputFile = reader.readLine();
         //Зчитування даних з файла
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(inputFile))) {
-            return (ArrayList<FixPaymentEmployees>) inputStream.readObject();
+            employeeses = (ArrayList<FixPaymentEmployees>) inputStream.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("File not found!");
         } catch (Exception e) {
             System.out.println("Incorrect format file!");
         }
-        return new ArrayList<FixPaymentEmployees>();
+        return employeeses;
     }
 
     //Запис даних колекції працівників в файл
